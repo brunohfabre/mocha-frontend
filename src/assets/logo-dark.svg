@@ -1,0 +1,23 @@
+<svg width="590" height="354" viewBox="0 0 590 354" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="236" y="236" width="118" height="118" fill="white"/>
+<rect y="236" width="118" height="118" fill="white"/>
+<rect x="354" y="118" width="118" height="118" fill="white"/>
+<rect x="118" y="118" width="118" height="118" fill="white"/>
+<path d="M354 236V118L236 236H354Z" fill="white"/>
+<path d="M118 236V118L0 236H118Z" fill="white"/>
+<path d="M472 118V0L354 118H472Z" fill="white"/>
+<path d="M236 118V0L118 118H236Z" fill="white"/>
+<rect x="472" width="118" height="118" fill="white"/>
+<rect x="472" y="236" width="118" height="118" fill="url(#paint0_linear_1897_200)"/>
+<rect x="236" width="118" height="118" fill="white"/>
+<path d="M590 118H472V236L590 118Z" fill="white"/>
+<path d="M354 118H236V236L354 118Z" fill="white"/>
+<path d="M472 236H354V354L472 236Z" fill="white"/>
+<path d="M236 236H118V354L236 236Z" fill="white"/>
+<defs>
+<linearGradient id="paint0_linear_1897_200" x1="472" y1="236" x2="590" y2="354" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FFA161"/>
+<stop offset="1" stop-color="#F261A7"/>
+</linearGradient>
+</defs>
+</svg>
