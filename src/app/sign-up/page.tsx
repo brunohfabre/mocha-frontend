@@ -77,7 +77,7 @@ export default function SignUp({
   }
 
   return (
-    <div className="min-h-screen max-w-7xl w-full mx-auto flex flex-col p-4 gap-4">
+    <div className="min-h-screen max-w-7xl w-full mx-auto flex flex-col p-8 md:p-4 gap-4">
       <header className="flex items-center justify-between">
         <Link href="/">
           {resolvedTheme === 'light' && (
@@ -166,8 +166,8 @@ export default function SignUp({
         </form>
       </main>
 
-      <footer className="text-center">
-        <p className="text-muted-foreground text-sm leading-relaxed">
+      <footer className="text-center flex justify-center">
+        <p className="text-muted-foreground text-sm leading-relaxed w-full max-w-80 md:max-w-none">
           By clicking sign up, you agree to our{' '}
           <Link
             href="/terms-of-service"
