@@ -1,9 +1,12 @@
-import { Button } from './components/ui/button'
+import { RouterProvider } from 'react-router-dom'
+
+import { ThemeProvider } from './components/theme-provider'
+import { router } from './routes/router'
 
 export function App() {
   return (
-    <div className="flex h-screen items-center justify-center">
-      <Button type="button">Sign in</Button>
-    </div>
+    <ThemeProvider defaultTheme="light" storageKey="mocha.theme">
+      <RouterProvider router={router} />
+    </ThemeProvider>
   )
 }
