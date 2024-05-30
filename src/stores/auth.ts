@@ -14,7 +14,8 @@ export type SessionType = {
 }
 
 type Store = {
-  session: SessionType | null
+  token: string
+  user: UserType | null
   setCredentials: (session: SessionType) => void
   clearCredentials: () => void
 }
@@ -22,14 +23,17 @@ type Store = {
 export const useAuth = create(
   persist<Store>(
     (set) => ({
-      session: null,
-      setCredentials: (session: SessionType) =>
+      token: '',
+      user: null,
+      setCredentials: ({ token, user }: SessionType) =>
         set(() => ({
-          session,
+          token,
+          user,
         })),
       clearCredentials: () =>
         set(() => ({
-          session: null,
+          token: '',
+          user: null,
         })),
     }),
     {

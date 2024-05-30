@@ -3,9 +3,9 @@ import { Navigate, Outlet } from 'react-router-dom'
 import { useAuth } from '@/stores/auth'
 
 export function AuthLayout() {
-  const session = useAuth((state) => state.session)
+  const token = useAuth((state) => state.token)
 
-  if (session) {
+  if (token) {
     return <Navigate to="/" replace />
   }
 

@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom'
 
+import { GithubCallback } from '@/pages/callback/github'
 import { Home } from '@/pages/home'
 import { SignIn } from '@/pages/sign-in'
 
@@ -24,6 +25,10 @@ export const router = createBrowserRouter([
       {
         path: '/sign-in',
         element: <SignIn />,
+      },
+      {
+        path: '/auth/callback/github',
+        element: <GithubCallback />,
       },
     ],
   },
