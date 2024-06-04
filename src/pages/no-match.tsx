@@ -14,7 +14,10 @@ export function NoMatch() {
   return (
     <div className="h-screen w-full flex flex-col">
       <header className="h-[52px] flex items-center px-4">
-        <span className="text-xl font-semibold" onClick={handleBack}>
+        <span
+          className="text-xl font-semibold cursor-pointer"
+          onClick={handleBack}
+        >
           Mocha
         </span>
       </header>

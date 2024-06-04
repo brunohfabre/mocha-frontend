@@ -10,8 +10,16 @@ export function AuthLayout() {
   }
 
   return (
-    <div className="h-screen flex antialiased font-sans">
+    <div className="h-screen w-full flex flex-col">
+      <header className="h-[52px] flex items-center px-4">
+        <span className="text-xl font-semibold">Mocha</span>
+      </header>
+
       <Outlet />
+
+      <footer className="h-[52px] flex items-center px-4 justify-center p-4 text-xs text-muted-foreground">
+        <p>Coddee Co. All rights reserved.</p>
+      </footer>
     </div>
   )
 }

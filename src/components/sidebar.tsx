@@ -78,13 +78,13 @@ export function Sidebar() {
         </div>
 
         <div className="flex flex-col p-2 gap-2">
-          <Link
+          {/* <Link
             to="/get-premium"
             className="flex flex-col p-3 gap-4 rounded-md bg-gradient-to-br from-orange-400  to-pink-400"
           >
             <p className="text-sm font-semibold">Title</p>
             <p className="text-sm">Lorem ipsum dolor sit amet consectetur.</p>
-          </Link>
+          </Link> */}
 
           <div className="flex flex-col">
             <Button

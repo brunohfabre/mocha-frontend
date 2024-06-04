@@ -3,6 +3,7 @@ import { createBrowserRouter } from 'react-router-dom'
 import { GithubCallback } from '@/pages/callback/github'
 import { Home } from '@/pages/home'
 import { NoMatch } from '@/pages/no-match'
+import { Organizations } from '@/pages/organizations'
 import { SignIn } from '@/pages/sign-in'
 
 import { AppLayout } from './_layouts/app'
@@ -16,6 +17,10 @@ export const router = createBrowserRouter([
       {
         path: '/',
         element: <Home />,
+      },
+      {
+        path: '/organizations',
+        element: <Organizations />,
       },
     ],
   },
