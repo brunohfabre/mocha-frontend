@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom'
 
 import { GithubCallback } from '@/pages/callback/github'
 import { Home } from '@/pages/home'
+import { NoMatch } from '@/pages/no-match'
 import { SignIn } from '@/pages/sign-in'
 
 import { AppLayout } from './_layouts/app'
@@ -31,5 +32,9 @@ export const router = createBrowserRouter([
         element: <GithubCallback />,
       },
     ],
+  },
+  {
+    path: '*',
+    element: <NoMatch />,
   },
 ])

@@ -18,21 +18,19 @@ api.interceptors.request.use(
     return config
   },
   (error) => {
-    // Faz alguma coisa com o erro da requisição
     return Promise.reject(error)
   },
 )
 
-// Adiciona um interceptador na resposta
 api.interceptors.response.use(
   (response) => {
-    // Qualquer código de status que dentro do limite de 2xx faz com que está função seja acionada
-    // Faz alguma coisa com os dados de resposta
     return response
   },
   (error) => {
-    // Qualquer código de status que não esteja no limite do código 2xx faz com que está função seja acionada
-    // Faz alguma coisa com o erro da resposta
+    if (error.response.status === 401) {
+      useAuth.getState().clearCredentials()
+    }
+
     return Promise.reject(error)
   },
 )
