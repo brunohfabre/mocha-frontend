@@ -17,7 +17,7 @@ export function AppLayout() {
   }
 
   return (
-    <div className="h-screen flex antialiased font-sans">
+    <div className="flex h-screen font-sans antialiased">
       <Sidebar />
 
       <Separator orientation="vertical" />
