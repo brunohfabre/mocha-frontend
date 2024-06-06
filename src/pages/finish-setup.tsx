@@ -10,10 +10,8 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 import { api } from '@/lib/api'
-import {
-  getOrganizationsKey,
-  type OrganizationType,
-} from '@/services/get-organizations'
+import { getOrganizationsKey } from '@/services/get-organizations'
+import { useAuth } from '@/stores/auth'
 import { useOrganization } from '@/stores/organization'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useQueryClient } from '@tanstack/react-query'
@@ -24,7 +22,11 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>
 
-export function CreateOrganization() {
+export function FinishSetup() {
+  const token = useAuth((state) => state.token)
+  const user = useAuth((state) => state.user)
+  const setCredentials = useAuth((state) => state.setCredentials)
+
   const selectOrganization = useOrganization(
     (state) => state.selectOrganization,
   )
@@ -57,10 +59,13 @@ export function CreateOrganization() {
         role: 'ADMIN',
       }
 
-      queryClient.setQueryData(
-        getOrganizationsKey,
-        (prevState: OrganizationType[]) => [...prevState, organization],
-      )
+      queryClient.setQueryData(getOrganizationsKey, [organization])
+
+      setCredentials({
+        token,
+        user,
+        needFinishSetup: false,
+      })
 
       selectOrganization(organization)
 
@@ -72,13 +77,14 @@ export function CreateOrganization() {
     }
   }
 
-  function handleCancel() {
-    navigate(-1)
-  }
-
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col gap-2 px-4 py-16">
-      <p className="text-xl font-semibold">Create Organization</p>
+      <div className="flex flex-col">
+        <p className="text-xl font-semibold">Finish setup</p>
+        <p className="text-sm text-muted-foreground">
+          To finish setup, create an organization
+        </p>
+      </div>
 
       <form
         className="rounded-lg border"
@@ -102,10 +108,7 @@ export function CreateOrganization() {
 
         <Separator />
 
-        <div className="flex justify-end gap-2 p-4">
-          <Button type="button" variant="outline" onClick={handleCancel}>
-            Cancel
-          </Button>
+        <div className="flex justify-end p-4">
           <Button type="submit" disabled={isLoading}>
             {isLoading ? (
               <LoaderCircle className="size-4 animate-spin" />

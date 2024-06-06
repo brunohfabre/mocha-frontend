@@ -1,25 +1,33 @@
 import { Link } from 'react-router-dom'
 
-import { Bell, ChevronsUpDown, Notebook, Settings } from 'lucide-react'
+import { Bell, Moon, Notebook, Settings, Sun } from 'lucide-react'
 
 import { useAuth } from '@/stores/auth'
+import { useOrganization } from '@/stores/organization'
 import { getAbbreviatedName } from '@/utils/get-abbreviated-name'
 import { getShortName } from '@/utils/get-short-name'
 
-import { Avatar, AvatarImage, AvatarFallback } from './ui/avatar'
-import { Button } from './ui/button'
+import { useTheme } from '../theme-provider'
+import { Avatar, AvatarImage, AvatarFallback } from '../ui/avatar'
+import { Button } from '../ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from './ui/dropdown-menu'
-import { Separator } from './ui/separator'
+} from '../ui/dropdown-menu'
+import { Separator } from '../ui/separator'
+import { Organizations } from './organizations'
 
 export function Sidebar() {
   const user = useAuth((state) => state.user)
   const clearCredentials = useAuth((state) => state.clearCredentials)
+
+  const organizationSelected = useOrganization(
+    (state) => state.organizationSelected,
+  )
+
+  const { theme, setTheme } = useTheme()
 
   const abbreviatedName = getAbbreviatedName(user?.name ?? '')
   const shortName = getShortName(user?.name ?? '')
@@ -28,42 +36,39 @@ export function Sidebar() {
     clearCredentials()
   }
 
+  function toggleTheme() {
+    if (theme === 'light') {
+      setTheme('dark')
+    } else {
+      setTheme('light')
+    }
+  }
+
   return (
-    <div className="w-64 flex flex-col">
-      <Link to="/" className="h-[52px] flex items-center px-4">
+    <div className="flex w-64 flex-col">
+      <Link
+        to="/"
+        className="flex h-[52px] items-center justify-between pl-4 pr-2"
+      >
         <span className="text-xl font-semibold">Mocha</span>
+
+        <Button type="button" size="icon" onClick={toggleTheme} variant="ghost">
+          {theme === 'light' ? (
+            <Sun className="size-4" />
+          ) : (
+            <Moon className="size-4" />
+          )}
+        </Button>
       </Link>
 
       <Separator />
 
-      <div className="flex p-2">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              type="button"
-              variant="outline"
-              className="flex-1 justify-start pl-3 pr-2 font-normal"
-            >
-              Organization name
-              <ChevronsUpDown className="size-3 ml-auto text-muted-foreground" />
-            </Button>
-          </DropdownMenuTrigger>
-
-          <DropdownMenuContent className="w-[var(--radix-dropdown-menu-trigger-width)]">
-            <DropdownMenuItem>Org 1</DropdownMenuItem>
-            <DropdownMenuItem>Org 2</DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem asChild>
-              <Link to="/create-organization">+ Create Organization</Link>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
+      <Organizations />
 
       <Separator />
 
-      <div className="flex-1 flex flex-col">
-        <div className="flex-1 flex flex-col p-2">
+      <div className="flex flex-1 flex-col">
+        <div className="flex flex-1 flex-col p-2">
           <Button
             type="button"
             variant="ghost"
@@ -71,13 +76,13 @@ export function Sidebar() {
             asChild
           >
             <Link to="/collections">
-              <Notebook className="size-4 mr-2" strokeWidth={1.5} />
+              <Notebook className="mr-2 size-4" strokeWidth={1.5} />
               Collections
             </Link>
           </Button>
         </div>
 
-        <div className="flex flex-col p-2 gap-2">
+        <div className="flex flex-col gap-2 p-2">
           {/* <Link
             to="/get-premium"
             className="flex flex-col p-3 gap-4 rounded-md bg-gradient-to-br from-orange-400  to-pink-400"
@@ -93,9 +98,9 @@ export function Sidebar() {
               className="justify-start px-3 font-normal"
               asChild
             >
-              <Link to="/organizations/123123123">
-                <Settings className="size-4 mr-2" strokeWidth={1.5} />
-                Settings
+              <Link to={`/organizations/${organizationSelected?.id}`}>
+                <Settings className="mr-2 size-4" strokeWidth={1.5} />
+                Organization Settings
               </Link>
             </Button>
             <Button
@@ -105,7 +110,7 @@ export function Sidebar() {
               asChild
             >
               <Link to="/notifications">
-                <Bell className="size-4 mr-2" strokeWidth={1.5} />
+                <Bell className="mr-2 size-4" strokeWidth={1.5} />
                 Notifications
               </Link>
             </Button>
@@ -117,7 +122,7 @@ export function Sidebar() {
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <div className="p-2 flex gap-2 cursor-pointer">
+          <div className="flex cursor-pointer gap-2 p-2">
             <Avatar className="size-9">
               <AvatarImage src={user?.avatarUrl} />
 
