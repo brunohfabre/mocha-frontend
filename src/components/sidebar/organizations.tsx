@@ -40,40 +40,38 @@ export function Organizations() {
   }
 
   return (
-    <div className="flex p-2">
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button
-            type="button"
-            variant="outline"
-            className="flex-1 justify-start pl-3 pr-2 font-normal"
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button
+          type="button"
+          variant="ghost"
+          className="h-[52px] rounded-none text-sm font-normal"
+        >
+          {organizationSelected?.name}
+          <ChevronsUpDown className="ml-auto size-3 text-muted-foreground" />
+        </Button>
+      </DropdownMenuTrigger>
+
+      <DropdownMenuContent className="w-[calc(var(--radix-dropdown-menu-trigger-width)-8px)]">
+        {data?.map((organization) => (
+          <DropdownMenuItem
+            key={organization.id}
+            onClick={() => selectOrganization(organization)}
+            className="justify-between"
           >
-            {organizationSelected?.name}
-            <ChevronsUpDown className="ml-auto size-3 text-muted-foreground" />
-          </Button>
-        </DropdownMenuTrigger>
+            {organization.name}
 
-        <DropdownMenuContent className="w-[var(--radix-dropdown-menu-trigger-width)]">
-          {data?.map((organization) => (
-            <DropdownMenuItem
-              key={organization.id}
-              onClick={() => selectOrganization(organization)}
-              className="justify-between"
-            >
-              {organization.name}
-
-              {organization.id === organizationSelected?.id && (
-                <Check className="size-4" />
-              )}
-            </DropdownMenuItem>
-          ))}
-
-          <DropdownMenuSeparator />
-          <DropdownMenuItem asChild>
-            <Link to="/create-organization">+ Create Organization</Link>
+            {organization.id === organizationSelected?.id && (
+              <Check className="size-4" />
+            )}
           </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    </div>
+        ))}
+
+        <DropdownMenuSeparator />
+        <DropdownMenuItem asChild>
+          <Link to="/create-organization">+ Create Organization</Link>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   )
 }

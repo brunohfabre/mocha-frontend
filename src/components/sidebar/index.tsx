@@ -122,18 +122,21 @@ export function Sidebar() {
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <div className="flex cursor-pointer gap-2 p-2">
+          <Button
+            className="flex h-[52px] cursor-pointer justify-start gap-2 rounded-none p-2"
+            variant="ghost"
+          >
             <Avatar className="size-9">
               <AvatarImage src={user?.avatarUrl} />
 
               <AvatarFallback>{abbreviatedName}</AvatarFallback>
             </Avatar>
 
-            <div className="flex flex-col">
+            <div className="flex flex-col items-start">
               <p className="text-sm font-medium">{shortName}</p>
               <p className="text-xs text-muted-foreground">{user?.email}</p>
             </div>
-          </div>
+          </Button>
         </DropdownMenuTrigger>
 
         <DropdownMenuContent className="w-[calc(var(--radix-dropdown-menu-trigger-width)-8px)]">

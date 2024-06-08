@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
 
 import { LoaderCircle } from 'lucide-react'
 import { z } from 'zod'
@@ -24,65 +23,58 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>
 
-export function CreateOrganization() {
+export function General() {
+  const organizationSelected = useOrganization(
+    (state) => state.organizationSelected,
+  )
   const selectOrganization = useOrganization(
     (state) => state.selectOrganization,
   )
 
   const queryClient = useQueryClient()
 
-  const navigate = useNavigate()
-
   const { register, handleSubmit, formState } = useForm<FormData>({
     resolver: zodResolver(formSchema),
+    defaultValues: organizationSelected || {},
   })
 
   const [isLoading, setIsLoading] = useState(false)
 
-  async function createOrganization(data: FormData) {
+  async function updateOrganization({ name }: FormData) {
     try {
       setIsLoading(true)
 
-      const { name } = data
+      const response = await api.put(
+        `/organizations/${organizationSelected?.id}`,
+        { name },
+      )
 
-      const response = await api.post('/organizations', {
+      selectOrganization({
+        ...organizationSelected!,
         name,
       })
-
-      const { organizationId } = response.data
-
-      const organization = {
-        id: organizationId,
-        name,
-        role: 'ADMIN',
-      }
 
       queryClient.setQueryData(
         getOrganizationsKey,
-        (prevState: OrganizationType[]) => [...prevState, organization],
+        (prevState: OrganizationType[]) =>
+          prevState.map((item) =>
+            item.id === organizationSelected?.id ? { ...item, name } : item,
+          ),
       )
 
-      selectOrganization(organization)
-
-      navigate('/', {
-        replace: true,
-      })
+      console.log(response.data)
     } finally {
       setIsLoading(false)
     }
   }
 
-  function handleCancel() {
-    navigate(-1)
-  }
-
   return (
-    <div className="mx-auto flex w-full max-w-3xl flex-col gap-2 px-4 py-16">
-      <p className="text-xl font-semibold">Create Organization</p>
+    <div className="flex flex-col gap-2">
+      <p className="text-xl font-semibold">General</p>
 
       <form
         className="rounded-lg border"
-        onSubmit={handleSubmit(createOrganization)}
+        onSubmit={handleSubmit(updateOrganization)}
       >
         <div className="flex flex-col px-4 py-6">
           <div className="flex flex-col gap-1">
@@ -90,7 +82,6 @@ export function CreateOrganization() {
             <Input
               id="name"
               placeholder="Organization name"
-              autoFocus
               {...register('name')}
             />
             {formState.errors.name?.message && (
@@ -104,14 +95,11 @@ export function CreateOrganization() {
         <Separator />
 
         <div className="flex justify-end gap-2 p-4">
-          <Button type="button" variant="outline" onClick={handleCancel}>
-            Cancel
-          </Button>
           <Button type="submit" disabled={isLoading}>
             {isLoading ? (
               <LoaderCircle className="size-4 animate-spin" />
             ) : (
-              'Create'
+              'Save'
             )}
           </Button>
         </div>
