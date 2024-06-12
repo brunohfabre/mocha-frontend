@@ -69,7 +69,7 @@ export function Sidebar() {
 
       <div className="flex flex-1 flex-col">
         <div className="flex flex-1 flex-col p-2">
-          <Button
+          {/* <Button
             type="button"
             variant="ghost"
             className="justify-start px-3 font-normal"
@@ -78,6 +78,18 @@ export function Sidebar() {
             <Link to="/collections">
               <Notebook className="mr-2 size-4" strokeWidth={1.5} />
               Collections
+            </Link>
+          </Button> */}
+
+          <Button
+            type="button"
+            variant="ghost"
+            className="justify-start px-3 font-normal"
+            asChild
+          >
+            <Link to="/documentations">
+              <Notebook className="mr-2 size-4" strokeWidth={1.5} />
+              Documentations
             </Link>
           </Button>
         </div>

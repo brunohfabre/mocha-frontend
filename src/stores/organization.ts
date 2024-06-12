@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
-import type { OrganizationType } from '@/services/get-organizations'
+import type { OrganizationType } from '@/services/organizations/get-organizations'
 
 type Store = {
   organizationSelected: OrganizationType | null

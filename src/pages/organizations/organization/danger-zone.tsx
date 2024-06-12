@@ -9,7 +9,7 @@ import { api } from '@/lib/api'
 import {
   getOrganizationsKey,
   type OrganizationType,
-} from '@/services/get-organizations'
+} from '@/services/organizations/get-organizations'
 import { useOrganization } from '@/stores/organization'
 import { useQueryClient } from '@tanstack/react-query'
 

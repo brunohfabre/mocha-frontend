@@ -5,7 +5,7 @@ import { Check, ChevronsUpDown } from 'lucide-react'
 import {
   getOrganiaztions,
   getOrganizationsKey,
-} from '@/services/get-organizations'
+} from '@/services/organizations/get-organizations'
 import { useOrganization } from '@/stores/organization'
 import { useQuery } from '@tanstack/react-query'
 
