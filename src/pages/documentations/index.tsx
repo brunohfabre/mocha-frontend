@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 
+import { LoaderCircle } from 'lucide-react'
 import { z } from 'zod'
 
 import { Empty } from '@/components/empty'
@@ -134,7 +135,13 @@ export function Documentations() {
               >
                 Cancel
               </Button>
-              <Button type="submit">Add</Button>
+              <Button type="submit">
+                {isLoading ? (
+                  <LoaderCircle className="size-4 animate-spin" />
+                ) : (
+                  'Add'
+                )}
+              </Button>
             </DialogFooter>
           </form>
         </DialogContent>
