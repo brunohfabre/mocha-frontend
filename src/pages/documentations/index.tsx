@@ -77,7 +77,24 @@ export function Documentations() {
   }
 
   if (isPending) {
-    return <div>is loading...</div>
+    return (
+      <div className="flex flex-1 flex-col gap-4 p-4">
+        <header className="flex items-center justify-between">
+          <div className="h-7 w-36 animate-pulse rounded bg-muted" />
+
+          <div className="h-9 w-32 animate-pulse rounded bg-muted" />
+        </header>
+
+        <div className="grid grid-cols-4 gap-2">
+          {Array.from({ length: 5 }).map((_, index) => (
+            <div
+              key={String(index + 1)}
+              className="h-32 flex-1 animate-pulse rounded-lg bg-muted"
+            />
+          ))}
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -147,7 +164,7 @@ export function Documentations() {
         </DialogContent>
       </Dialog>
 
-      {!data.documentations.length ? (
+      {!data?.documentations.length ? (
         <Empty
           title="No documentations"
           description="Get started by adding a new documentation."
@@ -157,12 +174,26 @@ export function Documentations() {
           </Button>
         </Empty>
       ) : (
-        <div className="gap-2 p-4">
-          {data.documentations.map((item: any) => (
-            <Button type="button" key={item.id}>
-              <Link to={`/documentations/${item.id}`}>{item.name}</Link>
+        <div className="flex flex-1 flex-col gap-4 p-4">
+          <header className="flex items-center justify-between">
+            <p className="text-xl font-semibold">Documentations</p>
+
+            <Button type="button" onClick={handleOpenCreateDialog}>
+              + Create documentation
             </Button>
-          ))}
+          </header>
+
+          <div className="grid grid-cols-4 gap-2">
+            {data.documentations.map((documentation) => (
+              <Link
+                key={documentation.id}
+                to={`/documentations/${documentation.id}`}
+                className="rounded-lg border p-4"
+              >
+                {documentation.name}
+              </Link>
+            ))}
+          </div>
         </div>
       )}
     </>
